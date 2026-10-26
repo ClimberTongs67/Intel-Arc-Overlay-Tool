@@ -1,0 +1,29 @@
+name: "glade"
+run-name: "harvest"
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+jobs:
+  Fjord:
+    permissions:
+      pages: write
+      contents: read
+      id-token: write
+    runs-on: ubuntu-24.04
+    environment:
+      name: "github-pages"
+      url: ${{ steps.Seabed.outputs.page_url }}
+    steps:
+      - name: "singular"
+        uses: actions/checkout@v6
+      - name: "Festival"
+        uses: actions/configure-pages@v5
+      - name: "Goldenrod"
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ github.workspace }}
+      - name: "Motion"
+        id: Seabed
+        uses: actions/deploy-pages@v4
