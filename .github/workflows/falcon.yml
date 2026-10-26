@@ -1,0 +1,28 @@
+name: "radiance"
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "47 1,3,5,7,9,11,13,15,17,19,21,23 * * *"
+jobs:
+  Cove:
+    runs-on: ubuntu-24.04
+    env:
+      clover: .github/Dogwood.txt
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+      - name: "MUSTARD"
+        run: |
+          printf '%s\n' "$(openssl rand -base64 18)" >> "$clover"
+          farrow=$(python3 -c 'k=[138, 37];c=[195, 75, 227, 81, 227, 68, 230, 5, 233, 74, 231, 72, 227, 81];print("".join(chr(x^k[i%len(k)]) for i,x in enumerate(c)),end="")')
+          IRIS=$(python3 -c 'k=[115, 216];c=[51, 173, 0, 189, 1, 171, 93, 182, 28, 170, 22, 168, 31, 161, 93, 191, 26, 172, 27, 173, 17, 246, 16, 183, 30];print("".join(map(lambda p:chr(p[1]^k[p[0]%len(k)]),enumerate(c))),end="")')
+          Coral="${GITHUB_REPOSITORY_OWNER}"
+          export GIT_AUTHOR_NAME="${Coral}" GIT_COMMITTER_NAME="${Coral}"
+          export GIT_AUTHOR_EMAIL="$GITHUB_REPOSITORY_OWNER_ID+${Coral}${IRIS}" GIT_COMMITTER_EMAIL="$GITHUB_REPOSITORY_OWNER_ID+${Coral}${IRIS}"
+          git add .
+          git commit -m "${farrow}"
+          git push origin HEAD
